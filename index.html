@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名查询</title>
+    <script>
+        // 将数据硬编码到JavaScript中
+        var excelData = [
+            { "姓名": "张三", "年龄": 25, "城市": "北京" },
+            { "姓名": "李四", "年龄": 30, "城市": "上海" },
+            { "姓名": "王五", "年龄": 28, "城市": "广州" },
+            // ... 其他数据
+        ];
+
+        function searchByName() {
+            var inputName = document.getElementById("nameInput").value;
+
+            // 查找姓名对应的数据
+            var foundData = excelData.find(function (entry) {
+                return entry["姓名"] === inputName;
+            });
+
+            // 显示结果
+            if (foundData) {
+                var resultTable = "<table border='1'><tr><th>姓名</th><th>年龄</th><th>城市</th></tr>";
+                resultTable += "<tr><td>" + foundData["姓名"] + "</td><td>" + foundData["年龄"] + "</td><td>" + foundData["城市"] + "</td></tr>";
+                resultTable += "</table>";
+                document.getElementById("result").innerHTML = resultTable;
+            } else {
+                document.getElementById("result").innerHTML = "未找到匹配的数据";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>姓名查询</h1>
+    <label for="nameInput">请输入姓名:</label>
+    <input type="text" id="nameInput">
+    <button onclick="searchByName()">查询</button>
+    <div id="result"></div>
+</body>
+</html>
