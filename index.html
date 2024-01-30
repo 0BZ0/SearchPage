@@ -1,44 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>姓名查询</title>
-    <script>
-        // 将数据硬编码到JavaScript中
-        var excelData = [
-            { "姓名": "张三", "年龄": 25, "城市": "北京" },
-            { "姓名": "李四", "年龄": 30, "城市": "上海" },
-            { "姓名": "王五", "年龄": 28, "城市": "广州" },
-            // ... 其他数据
+    <title>志愿者匹配查询</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #headerImage {
+            width: 100px;
+            height: auto;
+        }
+
+        #headerContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #result {
+            margin: 20px auto;
+            text-align: center;
+            background-color: #f0e6fa; /* Set the background color to a light purple */
+            padding: 15px; /* Add some padding for better visual appearance */
+            border-radius: 10px; /* Optional: Add rounded corners */   
+            width:50%; 
+        }
+    </style>
+    <script defer>
+        // Embedded volunteer data
+        var embeddedData = [
+            //后期补充新的
+        {"志愿者姓名":"wo","姓名":1,"学校":"w","微信号":123},
+        {"志愿者姓名":"wo","姓名":2,"学校":"w","微信号":12},
+        {"志愿者姓名":"wo","姓名":3,"学校":"s","微信号":133}
+        ,{"志愿者姓名":"wo","姓名":4,"学校":"x","微信号":244},
+        {"志愿者姓名":"we","姓名":5,"学校":2,"微信号":213},
+        {"志愿者姓名":"we","姓名":6,"学校":"w","微信号":333},
+        {"志愿者姓名":"w","姓名":7,"学校":"x","微信号":456},
+        {"志愿者姓名":"e","姓名":8,"学校":"v","微信号":559}
+            // Add more volunteer entries as needed
         ];
 
         function searchByName() {
             var inputName = document.getElementById("nameInput").value;
 
-            // 查找姓名对应的数据
-            var foundData = excelData.find(function (entry) {
-                return entry["姓名"] === inputName;
+            // Filter volunteers based on input name
+            var foundVolunteers = embeddedData.filter(function (volunteer) {
+                return volunteer["志愿者姓名"] === inputName;
             });
 
-            // 显示结果
-            if (foundData) {
-                var resultTable = "<table border='1'><tr><th>姓名</th><th>年龄</th><th>城市</th></tr>";
-                resultTable += "<tr><td>" + foundData["姓名"] + "</td><td>" + foundData["年龄"] + "</td><td>" + foundData["城市"] + "</td></tr>";
-                resultTable += "</table>";
-                document.getElementById("result").innerHTML = resultTable;
+            // Display the results in HTML
+            displayResults(foundVolunteers);
+        }
+
+        function displayResults(volunteers) {
+            var resultElement = document.getElementById("result");
+
+            // Clear previous results
+            resultElement.innerHTML = "";
+
+            // Display the results in HTML
+            if (volunteers.length > 0) {
+                //对这个内容修改
+                var resultHTML = "<h3>匹配对象信息:</h3>";
+                for (var i = 0; i < volunteers.length; i++) {
+                    resultHTML += "<p><strong>姓名:</strong> " + volunteers[i]["姓名"] + "</p>";
+                    resultHTML += "<p><strong>学校:</strong> " + volunteers[i]["学校"] + "</p>";
+                    resultHTML += "<p><strong>微信:</strong> " + volunteers[i]["微信号"] + "</p>";
+                    resultHTML += "<hr>";
+                }
+                resultElement.innerHTML = resultHTML;
             } else {
-                document.getElementById("result").innerHTML = "未找到匹配的数据";
+                resultElement.innerHTML = "<p>匹配失败，请重新确认是否填写正确.</p>";
             }
         }
     </script>
 </head>
+
 <body>
-    <h1>姓名查询</h1>
+    <div id="headerContainer">
+        <img id="headerImage" src="xh.png" alt="Header Image">
+        <h1>志愿者匹配查询</h1>
+    </div>
     <label for="nameInput">请输入姓名:</label>
     <input type="text" id="nameInput">
     <button onclick="searchByName()">查询</button>
     <div id="result"></div>
 </body>
+
 </html>
+
+
+
+
+
+
+
+
